@@ -13,7 +13,9 @@ export class AppComponent {
   observPrenotazioneArray !: Observable<Prenotazione[]>;
   prenotazioni : Prenotazione[] = [];
  
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) {
+    this.makeTypedRequest()
+  }
 
   makeTypedRequest() : void
   {
@@ -21,5 +23,5 @@ export class AppComponent {
     this.observPrenotazioneArray.subscribe(prenotazioni => {this.prenotazioni = prenotazioni;}); // Vengono salvati i dati ricevuti con il get, nella variabile prenotazioni.
 
   }
-  
+
 }
