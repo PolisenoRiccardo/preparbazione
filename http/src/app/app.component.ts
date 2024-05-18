@@ -14,7 +14,8 @@ export class AppComponent {
   observPrenotazioneArray !: Observable<Prenotazione[]>;
   prenotazioni : Prenotazione[] = [];
   nuovaPrenotazione !: Prenotazione;
-  counter : number = 0;
+  prenotazioneSelezionata !:Prenotazione;
+  selezionata: boolean = false;
  
   constructor(public http: HttpClient) {
     this.makeTypedRequest()
@@ -38,8 +39,6 @@ export class AppComponent {
           this.nuovaPrenotazione = new Prenotazione(newNome.value, newCognome.value, newIndirizzo.value, newTelefono.value, newMail.value, newData.value, newOra.value);
           this.prenotazioni.push(this.nuovaPrenotazione)
           this.makePost()
-          this.counter = this.counter + 1
-          console.log(this.counter)
           return false;
         }
     
@@ -49,5 +48,11 @@ export class AppComponent {
     this.observPrenotazione = this.http.post<Prenotazione>("https://my-json-server.typicode.com/PolisenoRiccardo/fakeServer/prenotazioni", posted, {headers});
     this.observPrenotazione.subscribe(postPrenotazione => {this.nuovaPrenotazione = postPrenotazione;});
   }
-  
+
+  selezione(prenotazione: Prenotazione) {
+    this.prenotazioneSelezionata = prenotazione;
+    this.selezionata = true;
+  }
+
+
 }
